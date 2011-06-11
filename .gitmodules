@@ -1,0 +1,12 @@
+[submodule "modules/kvm"]
+	path = modules/kvm
+	url = /Users/ken/Development/onedemo.old/modules/kvm/
+[submodule "modules/libvirt"]
+	path = modules/libvirt
+	url = /Users/ken/Development/onedemo.old/modules/libvirt/
+[submodule "modules/opennebula"]
+	path = modules/opennebula
+	url = /Users/ken/Development/onedemo.old/modules/opennebula/
+[submodule "modules/apache"]
+	path = modules/apache
+	url = /Users/ken/Development/onedemo.old/modules/apache/
