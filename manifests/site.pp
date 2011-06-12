@@ -2,13 +2,13 @@
 node /node1.cloud.*/ {
   class { "opennebula::controller":
     oneadmin_password => "gozanoli",
-#    oned_config => {
-#      'HOST_MONITORING_INTERVAL' => { value => 600 },
-#      'DB' => { value => {
-#        "backend" => "mysql", 
-#        "server" => "localhost", 
-#      }},
-#    },
+    oned_config => {
+      'HOST_MONITORING_INTERVAL' => { value => 600 },
+      'DB' => { value => {
+        "backend" => "mysql", 
+        "server" => "localhost", 
+      }},
+    },
 #    networks => {
 #      "public" => { value => {
 #        'TYPE' => "fixed",
@@ -57,6 +57,8 @@ node /node1.cloud.*/ {
 #    cluster => "production",
   }
   class { "opennebula::econe":
+    one_xmlrpc => "http://localhost:2633/RPC2",
+    port => 4567,
 #    econe_config => {
 #      'ONE_XMLRPC' => { value => "http://localhost:2633/RPC2" },
 #      'SERVER' => { value => $fqdn },

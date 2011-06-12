@@ -1,5 +1,18 @@
-node /cloudnode/ {
-  Class <<| tag == $fqdn |>>
+#node /cloudnode/ {
+#  Class <<| tag == $fqdn |>>
+#}
+
+# Solution ldap
+
+class solution::ldap {
+
+  class { "cluster::ldap":
+    nodes => 2,
+    cpu => 1,
+    memory => 256,
+    role => "ldap",
+  }
+  
 }
 
 
@@ -7,42 +20,30 @@ class { "solution::ldap":
   hostname => "ldap.bob.sh",
 }
 
-# Solution ldap
-class "solution::ldap" (
-  $hostname,
-  ) {
 
-  cluster { "ldap":
-    nodes => 2,
-    cpu => 1,
-    memory => 256,
-    role => "ldap",
-  }
 
-}
-
-solution { "openerp":
-  hostname => "erp.bob.sh",
-  ldap => {
-    server => Solution['ldap'],
-  },
-}
+#solution { "openerp":
+#  hostname => "erp.bob.sh",
+#  ldap => {
+#    server => Solution['ldap'],
+#  },
+#}
 
 # Solution openerp
-solution openerp (
+class solution::openerp (
   $hostname,
   $ldap = undef,
   ) {
 
-  cluster { "openerp::db": }
-  cluster { "openerp::openobject": 
+  class { "openerp::db": }
+  class { "openerp::openobject": 
     ldap => $ldap,
   }
-  cluster { "openerp::web": }
+  class { "openerp::web": }
 
 }
 
-class "cluster::openerp::db" {
+class cluster::openerp::db {
   class { postgresql::server: 
     port => 5432,
   } 
@@ -52,10 +53,11 @@ class "cluster::openerp::db" {
   }
 }
 
-cluster "openerp::openobject" (
+class cluster::openerp::openobject (
   $ldap = undef
   ) {
-  class { "openerp::openobject": 
+    
+  class { openerp::openobject: 
     ldap => $ldap,
   }
   class { apache:
@@ -64,7 +66,7 @@ cluster "openerp::openobject" (
   }
 }
 
-cluster openerp::web {
+class cluster::openerp::web {
   class { apache:
     modules => "python",
   }
