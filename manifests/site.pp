@@ -10,6 +10,9 @@ node /node1.cloud.*/ {
 #      'db_passwd' => 'opennebula',
 #      'db_name' => 'opennebula',
     },
+    clusters => [
+      'foo'
+    ],
 #    networks => {
 #      "public" => { value => {
 #        'TYPE' => "fixed",
