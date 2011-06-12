@@ -3,11 +3,12 @@ node /node1.cloud.*/ {
   class { "opennebula::controller":
     oneadmin_password => "gozanoli",
     oned_config => {
-      'db_backend' => 'mysql',
-      'db_server' => 'localhost',
-      'db_user' => 'opennebula',
-      'db_passwd' => 'opennebula',
-      'db_name' => 'opennebula',
+      'db_backend' => 'sqlite',
+#      'db_backend' => 'mysql',
+#      'db_server' => 'localhost',
+#      'db_user' => 'opennebula',
+#      'db_passwd' => 'opennebula',
+#      'db_name' => 'opennebula',
     },
 #    networks => {
 #      "public" => { value => {
@@ -86,4 +87,11 @@ node /node1.cloud.*/ {
   }
   class { "apache::passenger":
   }
+
+
+  # TODO: Some manual resource definitions here - need to be moved and cleaned 
+  # up
+  apache::a2site { "puppetmaster": }
+  apache::a2site { "mirror": }
+
 }
