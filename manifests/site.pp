@@ -3,11 +3,11 @@ node /node1.cloud.*/ {
   class { "opennebula::controller":
     oneadmin_password => "gozanoli",
     oned_config => {
-      'HOST_MONITORING_INTERVAL' => { value => 600 },
-      'DB' => { value => {
-        "backend" => "mysql", 
-        "server" => "localhost", 
-      }},
+      'db_backend' => 'mysql',
+      'db_server' => 'localhost',
+      'db_user' => 'opennebula',
+      'db_passwd' => 'opennebula',
+      'db_name' => 'opennebula',
     },
 #    networks => {
 #      "public" => { value => {
