@@ -13,6 +13,13 @@ node /node1.cloud.*/ {
     clusters => [
       'foo'
     ],
+    hosts => {
+      "${fqdn}" => {
+        im_mad => "im_kvm",
+        tm_mad => "tm_ssh",
+        vm_mad => "vm_kvm",
+      }
+    },
 #    networks => {
 #      "public" => { value => {
 #        'TYPE' => "fixed",
