@@ -35,6 +35,18 @@ node /node1.cloud.*/ {
         'public' => false,
       },
     },
+    vms => {
+      "box1" => {
+        memory => "256",
+        cpu => 1,
+        vcpu => 1,
+        os_arch => "x86_64",
+        disk => [
+          { type => "disk", source => "/tmp/diskimage", size => 8000, target => "hda", },
+          { type => "cdrom", source => "/tmp/installos", },
+        ],
+      }
+    },    
 #    images => {
 #      "debian-wheezy-amd64" => { value => {
 #        path => "/var/lib/opennebula/images/debian-wheezy-amd64/disk.0",
@@ -42,29 +54,6 @@ node /node1.cloud.*/ {
 #        description => "Debian Wheezy AMD64 Image",
 #      }},
 #    },
-#    instances => {
-#      "puppetmaster1.cloud.bob.sh" => { 
-#        config => {
-#          'CPU' => 1,
-#          'MEMORY' => 512,
-#          'OS' => {
-#            kernel => '/vmlinuz',
-#            initrd => '/initrd.img',
-#            root => 'sda',
-#          },
-#          'DISK' => {
-#            image => "debian-wheezy-amd64",
-#          },
-#          'NIC' => {
-#            network => "public",
-#          },
-#          'CONTEXT' => {
-#            files => "/tmp/foo",
-#          },
-#        },
-#        state => running,
-#      },
-#    }
   }
   class { "opennebula::node":
 #    server => $fqdn,
