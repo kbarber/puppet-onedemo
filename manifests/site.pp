@@ -15,20 +15,26 @@ node /node1.cloud.*/ {
     ],
     hosts => {
       "${fqdn}" => {
-        im_mad => "im_kvm",
-        tm_mad => "tm_ssh",
-        vm_mad => "vm_kvm",
+        'im_mad' => 'im_kvm',
+        'vm_mad' => 'vmm_kvm',
+        'tm_mad' => 'tm_ssh',
       }
     },
-#    networks => {
-#      "public" => { value => {
-#        'TYPE' => "fixed",
-#        'BRIDGE' => "virbr0",
-#        'LEASES' => [
-#          { ip => "192.168.128.2" },
-#        ],
-#      }},
-#    },
+    networks => {
+      "foo1" => { 
+        'type' => "fixed",
+        'bridge' => "virbr0",
+        'leases' => ["192.168.128.2", "192.168.128.3"],
+        'public' => true,
+      },
+      'foo2' => { 
+        'type' => "ranged",
+        'bridge' => "virbr1",
+        'network_size' => "C",
+        'network_address' => "10.1.2.0",
+        'public' => false,
+      },
+    },
 #    images => {
 #      "debian-wheezy-amd64" => { value => {
 #        path => "/var/lib/opennebula/images/debian-wheezy-amd64/disk.0",
