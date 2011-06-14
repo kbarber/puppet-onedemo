@@ -36,14 +36,13 @@ node /node1.cloud.*/ {
       },
     },
     vms => {
-      "box1" => {
+      "base1" => {
         memory => "256",
         cpu => 1,
         vcpu => 1,
         os_arch => "x86_64",
-        disk => [
-          { type => "disk", source => "/tmp/diskimage", size => 8000, target => "hda", },
-          { type => "cdrom", source => "/tmp/installos", },
+        disks => [
+          { type => "fs", size => 8000, format => "ext3", save => "yes" },
         ],
       }
     },    
