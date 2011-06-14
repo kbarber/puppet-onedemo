@@ -21,7 +21,7 @@ node /node1.cloud.*/ {
       }
     },
     networks => {
-      "foo1" => { 
+      'foo1' => { 
         'type' => "fixed",
         'bridge' => "virbr0",
         'leases' => ["192.168.128.2", "192.168.128.3"],
@@ -36,23 +36,37 @@ node /node1.cloud.*/ {
       },
     },
     vms => {
-#      "base1" => {
-#        memory => "256",
-#        cpu => 1,
-#        vcpu => 1,
-#        os_arch => "x86_64",
-#        disks => [
-#          { type => "fs", size => 8000, format => "ext3", save => "yes" },
-#        ],
-#      },
+      "base1" => {
+        memory => "256",
+        cpu => 1,
+        vcpu => 1,
+        os_arch => "x86_64",
+        disks => [
+          { image => "debian-wheezy-amd64", 
+            driver => "qcow2", 
+            target => "vda" }
+        ],
+        nics => [
+          { network => "foo1" }
+        ],
+        graphics_type => "vnc",
+        graphics_listen => "0.0.0.0",
+      },
       "base2" => {
         memory => "256",
         cpu => 1,
         vcpu => 1,
         os_arch => "x86_64",
         disks => [
-          { image => "debian-wheezy-amd64", driver => "qcow2", target => "vda" }
+          { image => "debian-wheezy-amd64", 
+            driver => "qcow2", 
+            target => "vda" }
         ],
+        nics => [
+          { network => "foo2" }
+        ],
+        graphics_type => "vnc",
+        graphics_listen => "0.0.0.0",
       },
     },    
     images => {
