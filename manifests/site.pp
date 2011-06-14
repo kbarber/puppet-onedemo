@@ -1,5 +1,29 @@
 # This node will act as the puppetmaster and the OpenNebula controller
 node /node1.cloud.*/ {
+  resources { "firewall": purge => true }
+  firewall { "000 accept all icmp":
+    proto => "icmp",
+    jump => "ACCEPT",
+  }
+  firewall { "001 accept all to lo interface":
+    proto => "all",
+    iniface => "lo",
+    jump => "ACCEPT",
+  }
+  firewall { "002 accept related established rules":
+    state => ["RELATED","ESTABLISHED"],
+    jump => "ACCEPT",
+  }
+  firewall { "100 accept ssh":
+    proto => "tcp",
+    dport => ["22"],
+    jump => "ACCEPT",
+  }
+  firewall { "999 drop all":
+    proto => "all",
+    jump => "ACCEPT",
+  }
+
   class { "opennebula::controller":
     oneadmin_password => "gozanoli",
     oned_config => {
