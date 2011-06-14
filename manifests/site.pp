@@ -36,15 +36,24 @@ node /node1.cloud.*/ {
       },
     },
     vms => {
-      "base1" => {
+#      "base1" => {
+#        memory => "256",
+#        cpu => 1,
+#        vcpu => 1,
+#        os_arch => "x86_64",
+#        disks => [
+#          { type => "fs", size => 8000, format => "ext3", save => "yes" },
+#        ],
+#      },
+      "base2" => {
         memory => "256",
         cpu => 1,
         vcpu => 1,
         os_arch => "x86_64",
         disks => [
-          { type => "fs", size => 8000, format => "ext3", save => "yes" },
+          { image => "debian-wheezy-amd64", driver => "qcow2", target => "vda" }
         ],
-      }
+      },
     },    
     images => {
       "debian-wheezy-amd64" => {
