@@ -47,7 +47,8 @@ node /node1.cloud.*/ {
             target => "vda" }
         ],
         nics => [
-          { network => "foo1" }
+          { network => "foo1",
+            model => "virtio" }
         ],
         graphics_type => "vnc",
         graphics_listen => "0.0.0.0",
@@ -63,7 +64,25 @@ node /node1.cloud.*/ {
             target => "vda" }
         ],
         nics => [
-          { network => "foo2" }
+          { network => "foo2",
+            model => "virtio" }
+        ],
+        graphics_type => "vnc",
+        graphics_listen => "0.0.0.0",
+      },
+      "gold" => {
+        memory => "512",
+        cpu => 1,
+        vcpu => 1,
+        os_arch => "x86_64",
+        disks => [
+          { image => "testsave", 
+            driver => "qcow2", 
+            target => "vda" }
+        ],
+        nics => [
+          { network => "foo2",
+            model => "virtio" }
         ],
         graphics_type => "vnc",
         graphics_listen => "0.0.0.0",
