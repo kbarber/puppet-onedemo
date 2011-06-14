@@ -46,13 +46,17 @@ node /node1.cloud.*/ {
         ],
       }
     },    
-#    images => {
-#      "debian-wheezy-amd64" => { value => {
-#        path => "/var/lib/opennebula/images/debian-wheezy-amd64/disk.0",
-#        public => "YES",
-#        description => "Debian Wheezy AMD64 Image",
-#      }},
-#    },
+    images => {
+      "debian-wheezy-amd64" => {
+        path => "/srv/images/debian-wheezy-amd64-opennebula.qcow2",
+        public => true,
+        persistent => false,
+        dev_prefix => "vd",
+        bus => "virtio",
+        type => "os",
+        description => "Debian Wheezy AMD64 Image",
+      },
+    },
   }
   class { "opennebula::node":
 #    server => $fqdn,
