@@ -11,6 +11,7 @@ node /node1.cloud.*/ {
     jump => "ACCEPT",
   }
   firewall { "002 accept related established rules":
+    proto => "all",
     state => ["RELATED","ESTABLISHED"],
     jump => "ACCEPT",
   }
