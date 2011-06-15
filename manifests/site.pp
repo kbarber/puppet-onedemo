@@ -1,5 +1,8 @@
 # This node will act as the puppetmaster and the OpenNebula controller
 node /node1.cloud.*/ {
+  # Allow forwarding for virtual machine hosts
+  sysctl::value { "net.ipv4.ip_forward": value => "1" }
+
   resources { "firewall": purge => true }
   firewall { "000 accept all icmp":
     proto => "icmp",
@@ -22,6 +25,27 @@ node /node1.cloud.*/ {
   }
   firewall { "999 drop all":
     proto => "all",
+    jump => "ACCEPT",
+  }
+
+  # Get natting working
+  firewall { "100 snat for network foo2":
+    table => "nat",
+    chain => "POSTROUTING",
+    proto => "all",
+    source => "10.1.2.0/24",
+    jump => "MASQUERADE",
+  }
+  firewall { "100 allow forwarding from foo2":
+    chain => "FORWARD",
+    proto => "all",
+    source => "10.1.2.0/24",
+    jump => "ACCEPT",
+  }
+  firewall { "100 allow forwarding to foo2":
+    chain => "FORWARD",
+    proto => "all",
+    destination => "10.1.2.0/24",
     jump => "ACCEPT",
   }
 
@@ -101,7 +125,7 @@ node /node1.cloud.*/ {
         vcpu => 1,
         os_arch => "x86_64",
         disks => [
-          { image => "testsave", 
+          { image => "deb-wheezy-amd64-2", 
             driver => "qcow2", 
             target => "vda" }
         ],

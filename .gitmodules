@@ -16,3 +16,6 @@
 [submodule "modules/mysql"]
 	path = modules/mysql
 	url = git@github.com:puppetlabs/puppetlabs-mysql.git
+[submodule "modules/sysctl"]
+	path = modules/sysctl
+	url = git@github.com:puppetlabs/puppet-sysctl.git
