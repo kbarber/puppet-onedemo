@@ -49,6 +49,11 @@ node /node1.cloud.*/ {
     jump => "ACCEPT",
   }
 
+  # Mysql database for stored configurations and oned
+  class { 'mysql::server':
+    root_password => "myrootpassword",
+  }
+
   class { "opennebula::controller":
     oneadmin_password => "gozanoli",
     oned_config => {
@@ -250,9 +255,16 @@ node /node1.cloud.*/ {
   apache::a2site { "puppetmaster": }
   apache::a2site { "mirror": }
 
+  @@foo { "motd": tag => "virt" }
+
+}
+
+define foo () {
+  file { "/tmp/foo": content => $name }
 }
 
 node /^virt/ {
   notify { "welcome": message => "Box is ${fqdn}" }
   file { "/etc/motd": content => "Welcome to ${fqdn}\n" }
+  Foo <<| tag == "virt" |>>
 }
