@@ -77,7 +77,7 @@ node /node1.cloud.*/ {
         'public' => true,
         context => {
           'gateway' => '192.168.128.1',
-          'dns' => '213.133.99.99',
+          'dns' => '8.8.8.8',
         }
       },
       'foo2' => { 
@@ -88,18 +88,18 @@ node /node1.cloud.*/ {
         'public' => false,
         context => {
           'gateway' => '10.1.2.254',
-          'dns' => '213.133.99.99',
+          'dns' => '8.8.8.8',
         }        
       },
     },
     vms => {
-      "base1" => {
+      "virt4.vms.cloud.bob.sh" => {
         memory => "256",
         cpu => 1,
         vcpu => 1,
         os_arch => "x86_64",
         disks => [
-          { image => "debian-wheezy-amd64", 
+          { image => "deb-wheezy-amd64-2", 
             driver => "qcow2", 
             target => "vda" }
         ],
@@ -110,13 +110,13 @@ node /node1.cloud.*/ {
         graphics_type => "vnc",
         graphics_listen => "0.0.0.0",
       },
-      "base2" => {
+      "virt3.vms.cloud.bob.sh" => {
         memory => "256",
         cpu => 1,
         vcpu => 1,
         os_arch => "x86_64",
         disks => [
-          { image => "debian-wheezy-amd64", 
+          { image => "deb-wheezy-amd64-2",
             driver => "qcow2", 
             target => "vda" }
         ],
@@ -127,7 +127,32 @@ node /node1.cloud.*/ {
         graphics_type => "vnc",
         graphics_listen => "0.0.0.0",
       },
-      "gold" => {
+      "virt2.vms.cloud.bob.sh" => {
+        memory => "512",
+        cpu => 1,
+        vcpu => 1,
+        os_arch => "x86_64",
+        disks => [
+          { image => "deb-wheezy-amd64-2", 
+            driver => "qcow2", 
+            target => "vda" }
+        ],
+        nics => [
+          { network => "foo2",
+            model => "virtio" }
+        ],
+        graphics_type => "vnc",
+        graphics_listen => "0.0.0.0",
+        context => {
+          hostname => '$NAME',
+          gateway => '$NETWORK[GATEWAY]',
+          dns => '$NETWORK[DNS]',
+          ip => '$NIC[IP]',
+          files => '/var/lib/one/context/init.sh',
+          target => "vdb",
+        },
+      },
+      "virt1.vms.cloud.bob.sh" => {
         memory => "512",
         cpu => 1,
         vcpu => 1,
@@ -209,4 +234,9 @@ node /node1.cloud.*/ {
   apache::a2site { "puppetmaster": }
   apache::a2site { "mirror": }
 
+}
+
+node /^virt/ {
+  notify { "welcome": message => "Box is ${fqdn}" }
+  file { "/etc/motd": content => "Welcome to ${fqdn}\n" }
 }
