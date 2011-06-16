@@ -156,11 +156,31 @@ node /node1.cloud.*/ {
   apache::a2site { "puppetmaster": }
   apache::a2site { "mirror": }
 
-  cluster { "virt":
+  cluster { "web":
     domain => "vms.cloud.bob.sh",
-    nodes => 7,
+    nodes => 4,
+    cpu => 1,
+    memory => 384,
+    classes => {
+      "apache" => {},
+    }
+  }
+  cluster { "db":
+    domain => "vms.cloud.bob.sh",
+    nodes => 2,
     cpu => 1,
     memory => 512,
+    classes => {
+      "mysql::server" => {
+        root_password => "stupidgit",
+      },
+    }
+  }
+  cluster { "lb":
+    domain => "vms.cloud.bob.sh",
+    nodes => 2,
+    cpu => 1,
+    memory => 256,
     classes => {
       "apache" => {},
     }
@@ -226,7 +246,7 @@ define vm($cpu, $memory, $classes) {
 
 }
 
-node /^virt/ {
+node /^.+\.vms\.cloud\./ {
   #notify { "welcome": message => "Box is ${fqdn}" }
   file { "/etc/motd": content => "Welcome to ${fqdn}\n" }
   Export_classes <<| tag == "vm_${fqdn}" |>>
