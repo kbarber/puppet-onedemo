@@ -94,7 +94,7 @@ node /node1.cloud.*/ {
     },
     vms => {
       "virt4.vms.cloud.bob.sh" => {
-        memory => "256",
+        memory => "512",
         cpu => 1,
         vcpu => 1,
         os_arch => "x86_64",
@@ -104,14 +104,22 @@ node /node1.cloud.*/ {
             target => "vda" }
         ],
         nics => [
-          { network => "foo1",
+          { network => "foo2",
             model => "virtio" }
         ],
         graphics_type => "vnc",
         graphics_listen => "0.0.0.0",
+        context => {
+          hostname => '$NAME',
+          gateway => '$NETWORK[GATEWAY]',
+          dns => '$NETWORK[DNS]',
+          ip => '$NIC[IP]',
+          files => '/var/lib/one/context/init.sh',
+          target => "vdb",
+        },
       },
       "virt3.vms.cloud.bob.sh" => {
-        memory => "256",
+        memory => "512",
         cpu => 1,
         vcpu => 1,
         os_arch => "x86_64",
@@ -126,6 +134,14 @@ node /node1.cloud.*/ {
         ],
         graphics_type => "vnc",
         graphics_listen => "0.0.0.0",
+        context => {
+          hostname => '$NAME',
+          gateway => '$NETWORK[GATEWAY]',
+          dns => '$NETWORK[DNS]',
+          ip => '$NIC[IP]',
+          files => '/var/lib/one/context/init.sh',
+          target => "vdb",
+        },
       },
       "virt2.vms.cloud.bob.sh" => {
         memory => "512",
