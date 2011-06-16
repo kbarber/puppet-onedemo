@@ -143,6 +143,14 @@ node /node1.cloud.*/ {
         ],
         graphics_type => "vnc",
         graphics_listen => "0.0.0.0",
+        context => {
+          hostname => '$NAME',
+          gateway => '$NETWORK[GATEWAY]',
+          dns => '$NETWORK[DNS]',
+          ip => '$NIC[IP]',
+          files => '/var/lib/one/context/init.sh',
+          target => "vdb",
+        },
       },
     },    
     images => {
