@@ -75,6 +75,10 @@ node /node1.cloud.*/ {
         'bridge' => "virbr0",
         'leases' => ["192.168.128.2", "192.168.128.3"],
         'public' => true,
+        context => {
+          'gateway' => '192.168.128.1',
+          'dns' => '213.133.99.99',
+        }
       },
       'foo2' => { 
         'type' => "ranged",
@@ -82,6 +86,10 @@ node /node1.cloud.*/ {
         'network_size' => "C",
         'network_address' => "10.1.2.0",
         'public' => false,
+        context => {
+          'gateway' => '10.1.2.254',
+          'dns' => '213.133.99.99',
+        }        
       },
     },
     vms => {
