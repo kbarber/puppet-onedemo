@@ -97,108 +97,108 @@ node /node1.cloud.*/ {
         }        
       },
     },
-    vms => {
-      "virt4.vms.cloud.bob.sh" => {
-        memory => "512",
-        cpu => 1,
-        vcpu => 1,
-        os_arch => "x86_64",
-        disks => [
-          { image => "deb-wheezy-amd64-2", 
-            driver => "qcow2", 
-            target => "vda" }
-        ],
-        nics => [
-          { network => "foo2",
-            model => "virtio" }
-        ],
-        graphics_type => "vnc",
-        graphics_listen => "0.0.0.0",
-        context => {
-          hostname => '$NAME',
-          gateway => '$NETWORK[GATEWAY]',
-          dns => '$NETWORK[DNS]',
-          ip => '$NIC[IP]',
-          files => '/var/lib/one/context/init.sh',
-          target => "vdb",
-        },
-      },
-      "virt3.vms.cloud.bob.sh" => {
-        memory => "512",
-        cpu => 1,
-        vcpu => 1,
-        os_arch => "x86_64",
-        disks => [
-          { image => "deb-wheezy-amd64-2",
-            driver => "qcow2", 
-            target => "vda" }
-        ],
-        nics => [
-          { network => "foo2",
-            model => "virtio" }
-        ],
-        graphics_type => "vnc",
-        graphics_listen => "0.0.0.0",
-        context => {
-          hostname => '$NAME',
-          gateway => '$NETWORK[GATEWAY]',
-          dns => '$NETWORK[DNS]',
-          ip => '$NIC[IP]',
-          files => '/var/lib/one/context/init.sh',
-          target => "vdb",
-        },
-      },
-      "virt2.vms.cloud.bob.sh" => {
-        memory => "512",
-        cpu => 1,
-        vcpu => 1,
-        os_arch => "x86_64",
-        disks => [
-          { image => "deb-wheezy-amd64-2", 
-            driver => "qcow2", 
-            target => "vda" }
-        ],
-        nics => [
-          { network => "foo2",
-            model => "virtio" }
-        ],
-        graphics_type => "vnc",
-        graphics_listen => "0.0.0.0",
-        context => {
-          hostname => '$NAME',
-          gateway => '$NETWORK[GATEWAY]',
-          dns => '$NETWORK[DNS]',
-          ip => '$NIC[IP]',
-          files => '/var/lib/one/context/init.sh',
-          target => "vdb",
-        },
-      },
-      "virt1.vms.cloud.bob.sh" => {
-        memory => "512",
-        cpu => 1,
-        vcpu => 1,
-        os_arch => "x86_64",
-        disks => [
-          { image => "deb-wheezy-amd64-2", 
-            driver => "qcow2", 
-            target => "vda" }
-        ],
-        nics => [
-          { network => "foo2",
-            model => "virtio" }
-        ],
-        graphics_type => "vnc",
-        graphics_listen => "0.0.0.0",
-        context => {
-          hostname => '$NAME',
-          gateway => '$NETWORK[GATEWAY]',
-          dns => '$NETWORK[DNS]',
-          ip => '$NIC[IP]',
-          files => '/var/lib/one/context/init.sh',
-          target => "vdb",
-        },
-      },
-    },    
+#    vms => {
+#      "virt4.vms.cloud.bob.sh" => {
+#        memory => "512",
+#        cpu => 1,
+#        vcpu => 1,
+#        os_arch => "x86_64",
+#        disks => [
+#          { image => "deb-wheezy-amd64-2", 
+#            driver => "qcow2", 
+#            target => "vda" }
+#        ],
+#        nics => [
+#          { network => "foo2",
+#            model => "virtio" }
+#        ],
+#        graphics_type => "vnc",
+#        graphics_listen => "0.0.0.0",
+#        context => {
+#          hostname => '$NAME',
+#          gateway => '$NETWORK[GATEWAY]',
+#          dns => '$NETWORK[DNS]',
+#          ip => '$NIC[IP]',
+#          files => '/var/lib/one/context/init.sh',
+#          target => "vdb",
+#        },
+#      },
+#      "virt3.vms.cloud.bob.sh" => {
+#        memory => "512",
+#        cpu => 1,
+#        vcpu => 1,
+#        os_arch => "x86_64",
+#        disks => [
+#          { image => "deb-wheezy-amd64-2",
+#            driver => "qcow2", 
+#            target => "vda" }
+#        ],
+#        nics => [
+#          { network => "foo2",
+#            model => "virtio" }
+#        ],
+#        graphics_type => "vnc",
+#        graphics_listen => "0.0.0.0",
+#        context => {
+#          hostname => '$NAME',
+#          gateway => '$NETWORK[GATEWAY]',
+#          dns => '$NETWORK[DNS]',
+#          ip => '$NIC[IP]',
+#          files => '/var/lib/one/context/init.sh',
+#          target => "vdb",
+#        },
+#      },
+#      "virt2.vms.cloud.bob.sh" => {
+#        memory => "512",
+#        cpu => 1,
+#        vcpu => 1,
+#        os_arch => "x86_64",
+#        disks => [
+#          { image => "deb-wheezy-amd64-2", 
+#            driver => "qcow2", 
+#            target => "vda" }
+#        ],
+#        nics => [
+#          { network => "foo2",
+#            model => "virtio" }
+#        ],
+#        graphics_type => "vnc",
+#        graphics_listen => "0.0.0.0",
+#        context => {
+#          hostname => '$NAME',
+#          gateway => '$NETWORK[GATEWAY]',
+#          dns => '$NETWORK[DNS]',
+#          ip => '$NIC[IP]',
+#          files => '/var/lib/one/context/init.sh',
+#          target => "vdb",
+#        },
+#      },
+#      "virt1.vms.cloud.bob.sh" => {
+#        memory => "512",
+#        cpu => 1,
+#        vcpu => 1,
+#        os_arch => "x86_64",
+#        disks => [
+#          { image => "deb-wheezy-amd64-2", 
+#            driver => "qcow2", 
+#            target => "vda" }
+#        ],
+#        nics => [
+#          { network => "foo2",
+#            model => "virtio" }
+#        ],
+#        graphics_type => "vnc",
+#        graphics_listen => "0.0.0.0",
+#        context => {
+#          hostname => '$NAME',
+#          gateway => '$NETWORK[GATEWAY]',
+#          dns => '$NETWORK[DNS]',
+#          ip => '$NIC[IP]',
+#          files => '/var/lib/one/context/init.sh',
+#          target => "vdb",
+#        },
+#      },
+#    },    
     images => {
       "debian-wheezy-amd64" => {
         path => "/srv/images/debian-wheezy-amd64-opennebula.qcow2",
@@ -255,7 +255,15 @@ node /node1.cloud.*/ {
   apache::a2site { "puppetmaster": }
   apache::a2site { "mirror": }
 
-  @@foo { "motd": tag => "virt" }
+  # Setup bind
+  class { "bind":
+  }
+
+  bind::zone { "vms.cloud.bob.sh":
+    type => "master",
+    file => "/var/lib/bind/vms.cloud.bob.sh.zone",
+    allow_update => "127.0.0.1",
+  }
 
 }
 
@@ -266,5 +274,4 @@ define foo () {
 node /^virt/ {
   notify { "welcome": message => "Box is ${fqdn}" }
   file { "/etc/motd": content => "Welcome to ${fqdn}\n" }
-  Foo <<| tag == "virt" |>>
 }

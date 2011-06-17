@@ -19,3 +19,6 @@
 [submodule "modules/sysctl"]
 	path = modules/sysctl
 	url = git@github.com:puppetlabs/puppet-sysctl.git
+[submodule "modules/bind"]
+	path = modules/bind
+	url = git@github.com:puppetlabs/puppetlabs-bind.git
