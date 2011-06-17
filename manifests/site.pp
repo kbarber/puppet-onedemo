@@ -63,6 +63,20 @@ node /node1.cloud.*/ {
 #      'db_user' => 'opennebula',
 #      'db_passwd' => 'opennebula',
 #      'db_name' => 'opennebula',
+      hooks => {
+        'dnsupdate' => {
+          on => "running",
+          command => "/usr/share/one/hooks/puppet/dnsupdate.rb",
+          arguments => 'vms.cloud.bob.sh 127.0.0.1 $NAME $NIC[IP]',
+          remote => "no",
+        },
+        'dnsdelete' => {
+          on => "done",
+          command => "/usr/share/one/hooks/puppet/dnsdelete.rb",
+          arguments => 'vms.cloud.bob.sh 127.0.0.1 $NAME',
+          remote => "no",
+        },
+      },
     },
     clusters => [
       'foo'
@@ -97,7 +111,7 @@ node /node1.cloud.*/ {
         }        
       },
     },
-#    vms => {
+    vms => {
 #      "virt4.vms.cloud.bob.sh" => {
 #        memory => "512",
 #        cpu => 1,
@@ -173,32 +187,32 @@ node /node1.cloud.*/ {
 #          target => "vdb",
 #        },
 #      },
-#      "virt1.vms.cloud.bob.sh" => {
-#        memory => "512",
-#        cpu => 1,
-#        vcpu => 1,
-#        os_arch => "x86_64",
-#        disks => [
-#          { image => "deb-wheezy-amd64-2", 
-#            driver => "qcow2", 
-#            target => "vda" }
-#        ],
-#        nics => [
-#          { network => "foo2",
-#            model => "virtio" }
-#        ],
-#        graphics_type => "vnc",
-#        graphics_listen => "0.0.0.0",
-#        context => {
-#          hostname => '$NAME',
-#          gateway => '$NETWORK[GATEWAY]',
-#          dns => '$NETWORK[DNS]',
-#          ip => '$NIC[IP]',
-#          files => '/var/lib/one/context/init.sh',
-#          target => "vdb",
-#        },
-#      },
-#    },    
+      "virt1.vms.cloud.bob.sh" => {
+        memory => "512",
+        cpu => 1,
+        vcpu => 1,
+        os_arch => "x86_64",
+        disks => [
+          { image => "deb-wheezy-amd64-2", 
+            driver => "qcow2", 
+            target => "vda" }
+        ],
+        nics => [
+          { network => "foo2",
+            model => "virtio" }
+        ],
+        graphics_type => "vnc",
+        graphics_listen => "0.0.0.0",
+        context => {
+          hostname => '$NAME',
+          gateway => '$NETWORK[GATEWAY]',
+          dns => '$NETWORK[DNS]',
+          ip => '$NIC[IP]',
+          files => '/var/lib/one/context/init.sh',
+          target => "vdb",
+        },
+      },
+    },    
     images => {
       "debian-wheezy-amd64" => {
         path => "/srv/images/debian-wheezy-amd64-opennebula.qcow2",
@@ -257,6 +271,18 @@ node /node1.cloud.*/ {
 
   # Setup bind
   class { "bind":
+  }
+
+  # Create sample zone file
+  $bind_zone_name = "vms.cloud.bob.sh"
+  $bind_zone_contact = "root.bob.sh"
+  $bind_zone_ns = "node1.cloud.bob.sh"
+  file { "/var/lib/bind/vms.cloud.bob.sh.zone":
+    replace => false,
+    owner => $bind::bind_user,
+    group => $bind::bind_group,
+    mode => "0644",
+    content => template("bind/sample.zone"),
   }
 
   bind::zone { "vms.cloud.bob.sh":
