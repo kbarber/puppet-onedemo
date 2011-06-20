@@ -226,7 +226,7 @@ node /node1.cloud.*/ {
     },
   }
   class { "opennebula::node":
-#    server => $fqdn,
+    controller => $fqdn,
 #    im => "im_kvm",
 #    vmm => "vmm_kvm",
 #    tm => "tm_ssh",
