@@ -293,10 +293,7 @@ node /node1.cloud.*/ {
 
 }
 
-define foo () {
-  file { "/tmp/foo": content => $name }
-}
-
+# Sample node configuration
 node /^virt/ {
   notify { "welcome": message => "Box is ${fqdn}" }
   file { "/etc/motd": content => "Welcome to ${fqdn}\n" }
