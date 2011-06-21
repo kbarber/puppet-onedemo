@@ -170,6 +170,10 @@ node /node1.cloud.*/ {
   apache::a2site { "puppetmaster": }
   apache::a2site { "mirror": }
 
+  # Setup bind
+  class { "bind":
+  }
+
   # Create sample zone file
   $bind_zone_name = "vms.cloud.bob.sh"
   $bind_zone_contact = "root.bob.sh"
@@ -221,6 +225,8 @@ node /node1.cloud.*/ {
       "apache" => {},
     }
   }
+
+  ## end ###
 
 }
 
