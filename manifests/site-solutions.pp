@@ -66,6 +66,20 @@ node /node1.cloud.*/ {
 #      'db_user' => 'opennebula',
 #      'db_passwd' => 'opennebula',
 #      'db_name' => 'opennebula',
+      hooks => {
+        'dnsupdate' => {
+          on => "running",
+          command => "/usr/share/one/hooks/puppet/dnsupdate.rb",
+          arguments => 'vms.cloud.bob.sh 127.0.0.1 $NAME $NIC[IP]',
+          remote => "no",
+        },
+        'dnsdelete' => {
+          on => "done",
+          command => "/usr/share/one/hooks/puppet/dnsdelete.rb",
+          arguments => 'vms.cloud.bob.sh 127.0.0.1 $NAME',
+          remote => "no",
+        },
+      },
     },
     clusters => [
       'foo'
@@ -113,7 +127,7 @@ node /node1.cloud.*/ {
     },
   }
   class { "opennebula::node":
-#    server => $fqdn,
+    controller => $fqdn,
 #    im => "im_kvm",
 #    vmm => "vmm_kvm",
 #    tm => "tm_ssh",
@@ -155,6 +169,28 @@ node /node1.cloud.*/ {
   # up
   apache::a2site { "puppetmaster": }
   apache::a2site { "mirror": }
+
+  # Create sample zone file
+  $bind_zone_name = "vms.cloud.bob.sh"
+  $bind_zone_contact = "root.bob.sh"
+  $bind_zone_ns = "node1.cloud.bob.sh"
+  file { "/var/lib/bind/vms.cloud.bob.sh.zone":
+    replace => false,
+    owner => $bind::bind_user,
+    group => $bind::bind_group,
+    mode => "0644",
+    content => template("bind/sample.zone"),
+  }
+
+  bind::zone { "vms.cloud.bob.sh":
+    type => "master",
+    file => "/var/lib/bind/vms.cloud.bob.sh.zone",
+    allow_update => "127.0.0.1",
+  }
+  
+  ###################
+  # Cluster pattern #
+  ###################
 
   cluster { "web":
     domain => "vms.cloud.bob.sh",
