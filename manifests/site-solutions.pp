@@ -202,6 +202,13 @@ node /node\d+\.cloud\.*/ {
     ],
   }
 
+  class { "java":
+    distribution => "jdk",
+    version => "latest",
+  }
+  class { "activemq":
+  }
+
   ###################
   # Cluster pattern #
   ###################
