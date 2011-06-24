@@ -1,5 +1,5 @@
 # This node will act as the puppetmaster and the OpenNebula controller
-node /node1.cloud.*/ {
+node /node\d+\.cloud\.*/ {
   # Purge vm's for this solution
   resources { "onevm": purge => true }
 
