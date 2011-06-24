@@ -22,3 +22,6 @@
 [submodule "modules/bind"]
 	path = modules/bind
 	url = git@github.com:puppetlabs/puppetlabs-bind.git
+[submodule "modules/mcollective"]
+	path = modules/mcollective
+	url = git@github.com:puppetlabs/puppetlabs-mcollective.git
