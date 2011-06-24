@@ -184,9 +184,14 @@ node /node\d+\.cloud\.*/ {
     type => "master",
     allow_update => "127.0.0.1",
     zone_contact => "root@bob.sh",
-    nameservers => ["node1.cloud.bob.sh"],
   }
-  
+
+  bind::zone { "2.1.10.in-addr.arpa":
+    type => "master",
+    allow_update => "127.0.0.1",
+    zone_contact => "root@bob.sh",
+  }
+
   ###################
   # Cluster pattern #
   ###################
