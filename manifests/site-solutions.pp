@@ -54,7 +54,9 @@ node /node\d+\.cloud\.*/ {
 
   # Mysql database for stored configurations and oned
   class { 'mysql::server':
-    root_password => "myrootpassword",
+    config_hash => {
+      root_password => "myrootpassword",
+    }
   }
 
   class { "opennebula::controller":
@@ -126,6 +128,7 @@ node /node\d+\.cloud\.*/ {
       },
     },
   }
+
   class { "opennebula::node":
     controller => $fqdn,
 #    im => "im_kvm",
@@ -133,6 +136,7 @@ node /node\d+\.cloud\.*/ {
 #    tm => "tm_ssh",
 #    cluster => "production",
   }
+
   class { "opennebula::econe":
     one_xmlrpc => "http://localhost:2633/RPC2",
     port => 4567,
@@ -151,8 +155,10 @@ node /node\d+\.cloud\.*/ {
 #      }
 #    }
   }
+
   class { "kvm":
   }
+
   class { libvirt:
     libvirtd_config => {
       max_clients => { value => 10 },
@@ -161,9 +167,9 @@ node /node\d+\.cloud\.*/ {
       vnc_listen => { value => "0.0.0.0" },
     },
   }
+
   class { "apache::passenger":
   }
-
 
   # TODO: Some manual resource definitions here - need to be moved and cleaned 
   # up
@@ -174,22 +180,11 @@ node /node\d+\.cloud\.*/ {
   class { "bind":
   }
 
-  # Create sample zone file
-  $bind_zone_name = "vms.cloud.bob.sh"
-  $bind_zone_contact = "root.bob.sh"
-  $bind_zone_ns = "node1.cloud.bob.sh"
-  file { "/var/lib/bind/vms.cloud.bob.sh.zone":
-    replace => false,
-    owner => $bind::bind_user,
-    group => $bind::bind_group,
-    mode => "0644",
-    content => template("bind/sample.zone"),
-  }
-
   bind::zone { "vms.cloud.bob.sh":
     type => "master",
-    file => "/var/lib/bind/vms.cloud.bob.sh.zone",
     allow_update => "127.0.0.1",
+    zone_contact => "root@bob.sh",
+    nameservers => ["node1.cloud.bob.sh"],
   }
   
   ###################
@@ -289,7 +284,5 @@ define vm($cpu, $memory, $classes) {
 }
 
 node /^.+\.vms\.cloud\./ {
-  #notify { "welcome": message => "Box is ${fqdn}" }
-  file { "/etc/motd": content => "Welcome to ${fqdn}\n" }
   Export_classes <<| tag == "vm_${fqdn}" |>>
 }
