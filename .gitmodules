@@ -40,9 +40,6 @@
 [submodule "modules/java"]
 	path = modules/java
 	url = git@github.com:puppetlabs/puppetlabs-java
-[submodule "puppetlabs-mcollective"]
-	path = puppetlabs-mcollective
-	url = git@github.com:puppetlabs/puppetlabs-mcollective
 [submodule "modules/functions"]
 	path = modules/functions
 	url = git@github.com:puppetlabs/puppetlabs-functions
