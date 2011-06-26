@@ -287,7 +287,9 @@ node /node1.cloud.*/ {
 
   bind::zone { "vms.cloud.bob.sh":
     type => "master",
-    allow_update => "127.0.0.1",
+    options => {
+      'allow-update' => "127.0.0.1",
+    }
   }
 
 }

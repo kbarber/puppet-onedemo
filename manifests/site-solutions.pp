@@ -183,7 +183,7 @@ node /node\d+\.cloud\.*/ {
   bind::zone { "vms.cloud.bob.sh":
     type => "master",
     zone_contact => "root@bob.sh",
-    config => {
+    options => {
       'masterfile-format' => 'text',
       'allow-update' => ['127.0.0.1'],
     },
@@ -192,8 +192,15 @@ node /node\d+\.cloud\.*/ {
   bind::zone { "2.1.10.in-addr.arpa":
     type => "master",
     zone_contact => "root@bob.sh",
-    config => {
+    options => {
       'allow-update' => ['127.0.0.1'],
+    }
+  }
+
+  bind::view { "internal":
+    match_clients => ["192.168.1.0/24"],
+    options => {
+      'check-names' => 'master',
     }
   }
 
