@@ -204,6 +204,14 @@ node /node\d+\.cloud\.*/ {
     }
   }
 
+  bind::view::zone { "internal:mydomain.com":
+    type => "master",
+    zone_contact => "ken@mydomain.com",
+    options => {
+      'allow-update' => ['127.0.0.1'],
+    }
+  }
+
   class { "ntp":
     servers => [
       'ntp1.hetzner.de',
