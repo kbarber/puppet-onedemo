@@ -37,6 +37,7 @@ node /node\d+\.cloud\.*/ {
     chain => "POSTROUTING",
     proto => "all",
     source => "10.1.2.0/24",
+    outiface => "eth0",
     jump => "MASQUERADE",
   }
   firewall { "100 allow forwarding from foo2":
@@ -225,11 +226,12 @@ node /node\d+\.cloud\.*/ {
     ],
   }
 
-  class { "java":
-    distribution => "jdk",
-    version => "latest",
+  # Mcollective
+  class { "rabbitmq::server":
+    delete_guest_user => true,
   }
-  class { "activemq":
+  class { "mcollective":
+    mc_security_psk => 'abc123',
   }
 
   ###################
@@ -242,7 +244,7 @@ node /node\d+\.cloud\.*/ {
     cpu => 1,
     memory => 384,
     classes => {
-      "apache" => {},
+      "my_web" => {},
     }
   }
   cluster { "db":
@@ -251,9 +253,7 @@ node /node\d+\.cloud\.*/ {
     cpu => 1,
     memory => 512,
     classes => {
-      "mysql::server" => {
-        root_password => "stupidgit",
-      },
+      "my_db" => {}
     }
   }
   cluster { "lb":
@@ -262,7 +262,7 @@ node /node\d+\.cloud\.*/ {
     cpu => 1,
     memory => 256,
     classes => {
-      "apache" => {},
+      "my_lb" => {},
     }
   }
 

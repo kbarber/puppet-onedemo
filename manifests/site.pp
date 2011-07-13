@@ -34,6 +34,7 @@ node /node1.cloud.*/ {
     chain => "POSTROUTING",
     proto => "all",
     source => "10.1.2.0/24",
+    outiface => "eth0",
     jump => "MASQUERADE",
   }
   firewall { "100 allow forwarding from foo2":
