@@ -1,0 +1,11 @@
+set nthreads     20
+set _tilde 0
+
+deb     http://ftp.debian.org/debian/ wheezy  main non-free contrib
+deb     http://ftp.debian.org/debian/ wheezy-proposed-updates  main non-free contrib
+deb     http://ftp.debian.org/debian/ experimental  main
+
+deb	http://apt.puppetlabs.com/debian/ sid main
+
+clean http://ftp.debian.org/debian
+clean http://apt.puppetlabs.com/debian

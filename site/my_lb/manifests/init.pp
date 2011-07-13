@@ -6,6 +6,10 @@ class my_lb {
     purge => true
   }
 
+  sysctl::value { "net.ipv4.ip_forward":
+    value => 1,
+  }
+
   Keepalived_real_server {
     notify => Service["keepalived"],
   }

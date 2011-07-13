@@ -30,16 +30,11 @@ class my_web {
     value => 2,
   }
 
-  network_config { "lo:1":
-    bootproto     => "none",
-    netmask       => "255.255.255.255",
-    ipaddr        => "10.1.2.200",
-    require       => Sysctl::Value["net.ipv4.conf.eth0.arp_ignore",
-                       "net.ipv4.conf.eth0.arp_announce"],
-  }
+  # TODO: setup networking for non-arp 10.1.2.200 address
 
   file { "/var/www/index.html":
     content => "${fqdn}\n",
+    require => Class["apache"],
   }
  
 }

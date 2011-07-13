@@ -32,7 +32,7 @@ Here is a sample puppet.conf:
     
     [onedemo]
     manifest=/etc/puppet/envs/onedemo/manifests/site.pp
-    modulepath=/etc/puppet/envs/onedemo/modules
+    modulepath=/etc/puppet/envs/onedemo/modules:/etc/puppet/envs/onedemo/site
     
     [agent]
     environment = onedemo
