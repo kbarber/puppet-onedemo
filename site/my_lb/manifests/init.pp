@@ -1,5 +1,5 @@
 class my_lb {
-  class { "lvs":
+  class { "lvs::keepalived":
   }
 
   resources { ["keepalived_global_defs","keepalived_vrrp_instance","keepalived_vrrp_sync_group","keepalived_static_routes","keepalived_virtual_server","keepalived_real_server"]:
