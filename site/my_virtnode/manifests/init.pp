@@ -43,4 +43,13 @@ class my_virtnode {
     },
   }
 
+  class { "ntp":
+    servers => [
+      'ntp1.hetzner.de',
+      'ntp2.hetzner.com',
+      'ntp3.hetzner.net',
+      '0.debian.pool.ntp.org',
+      '1.debian.pool.ntp.org',
+    ],
+  }
 }
