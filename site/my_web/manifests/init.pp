@@ -1,8 +1,12 @@
 class my_web {
-  class { "apache": 
-  }
-  apache::a2site { "default": 
-  }
+  class { "apache": }
+  class { "apache::php": }
+
+  # Php - meh
+  package { "php5": ensure => installed }
+
+  apache::a2site { "default": }
+  apache::a2site { "stikked": }
 
   # Export real server
   $hc = {
@@ -25,7 +29,7 @@ class my_web {
 
   sysctl::value { "net.ipv4.conf.eth0.arp_ignore":
     value => 1,
-  }
+  }->
   sysctl::value { "net.ipv4.conf.eth0.arp_announce":
     value => 2,
   }
@@ -36,5 +40,20 @@ class my_web {
     content => "${fqdn}\n",
     require => Class["apache"],
   }
+
+  file { "/etc/network/interfaces":
+    owner => "root",
+    group => "root",
+    mode => "0640",
+    content => template("${module_name}/interfaces"),
+    require => Sysctl::Value["net.ipv4.conf.eth0.arp_announce"],
+    notify => Exec["ifup_all"],
+  }
+
+  exec { "ifup_all":
+    command => "/sbin/ifup -a",
+    refreshonly => true,
+  }
  
+  class { "mysql": }
 }

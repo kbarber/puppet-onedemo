@@ -2,8 +2,42 @@ class my_virtnode {
   # Allow forwarding for virtual machine hosts
   sysctl::value { "net.ipv4.ip_forward": value => "1" }
 
-  # Get natting working
-  firewall { "100 snat for network foo2":
+  firewall { "100 allow forwarding from internal":
+    chain => "FORWARD",
+    proto => "all",
+    source => "10.1.2.0/24",
+    jump => "ACCEPT",
+  }
+  firewall { "100 allow forwarding to internal":
+    chain => "FORWARD",
+    proto => "all",
+    destination => "10.1.2.0/24",
+    jump => "ACCEPT",
+  }
+
+  firewall { "200 dnat loadbalanced ip":
+    chain => "PREROUTING",
+    table => "raw",
+    proto => "tcp",
+    destination => "46.4.106.119",
+    dport => "80",
+    todest => "10.1.2.200",
+    iniface => "eth0",
+    jump => "RAWDNAT",
+  }
+  firewall { "201 snat loadbalanced ip":
+    chain => "POSTROUTING",
+    table => "rawpost",
+    proto => "tcp",
+    source => "10.1.2.200",
+    sport => "80",
+    tosource => "46.4.106.119",
+    outiface => "eth0",
+    jump => "RAWSNAT",
+  }
+
+  # Outbound nat
+  firewall { "500 outbound nat for internal":
     table => "nat",
     chain => "POSTROUTING",
     proto => "all",
@@ -11,18 +45,7 @@ class my_virtnode {
     outiface => "eth0",
     jump => "MASQUERADE",
   }
-  firewall { "100 allow forwarding from foo2":
-    chain => "FORWARD",
-    proto => "all",
-    source => "10.1.2.0/24",
-    jump => "ACCEPT",
-  }
-  firewall { "100 allow forwarding to foo2":
-    chain => "FORWARD",
-    proto => "all",
-    destination => "10.1.2.0/24",
-    jump => "ACCEPT",
-  }
+
 
   class { "opennebula::node":
     controller => $fqdn,

@@ -23,4 +23,8 @@ class my_soe {
     proto => "all",
     jump => "ACCEPT",
   }
+
+  # Packages
+  package { "vim": ensure => installed }
+  package { "tcpdump": ensure => installed }
 }

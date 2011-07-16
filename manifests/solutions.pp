@@ -28,7 +28,7 @@ define vm($cpu, $memory, $classes) {
   ]
 
   $nics = [
-     { network => "foo2",
+     { network => "internal",
        model => "virtio" },{}
   ]
 

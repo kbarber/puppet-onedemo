@@ -45,7 +45,7 @@
 	url = git@github.com:puppetlabs/puppetlabs-functions
 [submodule "modules/lvs"]
 	path = modules/lvs
-	url = git@github.com:kbarber/puppetlabs-lvs.git
+	url = git@github.com:puppetlabs/puppetlabs-lvs.git
 [submodule "modules/rabbitmq"]
 	path = modules/rabbitmq
 	url = git@github.com:puppetlabs/puppetlabs-rabbitmq.git

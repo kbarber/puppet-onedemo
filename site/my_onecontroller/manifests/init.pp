@@ -27,7 +27,7 @@ class my_onecontroller {
       },
     },
     clusters => [
-      'foo'
+      'production'
     ],
     hosts => {
       "${fqdn}" => {
@@ -37,17 +37,7 @@ class my_onecontroller {
       }
     },
     networks => {
-      'foo1' => {
-        'type' => "fixed",
-        'bridge' => "virbr0",
-        'leases' => ["192.168.128.2", "192.168.128.3"],
-        'public' => true,
-        context => {
-          'gateway' => '192.168.128.1',
-          'dns' => '8.8.8.8',
-        }
-      },
-      'foo2' => {
+      'internal' => {
         'type' => "ranged",
         'bridge' => "virbr1",
         'network_size' => "C",
@@ -55,7 +45,7 @@ class my_onecontroller {
         'public' => false,
         context => {
           'gateway' => '10.1.2.254',
-          'dns' => '8.8.8.8',
+          'dns' => '10.1.2.254',
         }
       },
     },
@@ -90,4 +80,6 @@ class my_onecontroller {
 #      }
 #    }
   }
+
+  class { "opennebula::sunstone": }
 }
