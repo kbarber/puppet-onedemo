@@ -75,4 +75,7 @@ class my_virtnode {
       '1.debian.pool.ntp.org',
     ],
   }
+
+  # Needed for stateless NAT
+  package { "xtables-addons-common": ensure => installed }
 }

@@ -1,6 +1,12 @@
 # Defaults
 import 'solutions.pp'
 resources { "firewall": purge => true }
+
+# Stages
+stage { "pre": before => Stage["main"] }
+stage { "post": require => Stage["main"] }
+
+# All nodes get SOE
 class { "my_soe": }
 
 # This node will act as the puppetmaster and the OpenNebula controller
@@ -11,7 +17,7 @@ node /node\d+\.cloud\.*/ {
   class { "my_dns": }
   class { "my_onecontroller": }
   class { "my_puppetmaster": }
-  class { "my_mcserver": }
+  class { "my_mq": }
 
   ###################
   # Cluster pattern #
