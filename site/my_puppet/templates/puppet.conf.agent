@@ -1,0 +1,14 @@
+[main]
+logdir=/var/log/puppet
+vardir=/var/lib/puppet
+ssldir=/var/lib/puppet/ssl
+rundir=/var/run/puppet
+factpath=$vardir/lib/facter
+templatedir=$confdir/templates
+prerun_command=/etc/puppet/etckeeper-commit-pre
+postrun_command=/etc/puppet/etckeeper-commit-post
+
+[agent]
+environment = onedemo
+pluginsync = true
+lastrunfile = /var/lib/puppet/state/last_run_summary.yaml

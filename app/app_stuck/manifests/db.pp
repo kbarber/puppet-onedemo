@@ -1,4 +1,4 @@
-class my_db {
+class app_stuck::db {
   class { "mysql::server":
     config_hash => {
       root_password => "stupidgit",

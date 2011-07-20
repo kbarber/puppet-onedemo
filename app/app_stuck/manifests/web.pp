@@ -1,4 +1,4 @@
-class my_web {
+class app_stuck::web {
   class { "apache": }
   class { "apache::php": }
 
