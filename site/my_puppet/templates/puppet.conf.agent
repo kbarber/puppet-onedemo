@@ -12,3 +12,7 @@ postrun_command=/etc/puppet/etckeeper-commit-post
 environment = onedemo
 pluginsync = true
 lastrunfile = /var/lib/puppet/state/last_run_summary.yaml
+inventory_terminus = facter
+inventory_server = puppet
+inventory_port = 8140
+classfile = /var/lib/puppet/state/classes.txt

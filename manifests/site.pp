@@ -1,6 +1,9 @@
 # Defaults
 import 'solutions.pp'
 resources { "firewall": purge => true }
+filebucket { main: server => puppet }
+File { backup => main }
+
 
 # Stages
 stage { "pre": before => Stage["main"] }
@@ -14,8 +17,13 @@ node /node\d+\.cloud\.*/ {
   class { "my_mq": }
   class { "my_puppet": master => true }
 
-  app_stuck { "pastebin.bob.sh":
-    db_servers => 2,
+#  app_stuck { "pastebin.bob.sh":
+#    db_servers => 1,
+#    web_servers => 2,
+#    lb_servers => 2,
+#  }
+  app_basetomcat { "tc.bob.sh":
+    db_servers => 1,
     web_servers => 2,
     lb_servers => 2,
   }

@@ -21,7 +21,7 @@ class my_virtnode {
     proto => "tcp",
     destination => "46.4.106.119/32",
     dport => "80",
-    todest => "10.1.2.200",
+    todest => "10.1.2.200/32",
     iniface => "eth0",
     jump => "RAWDNAT",
   }
@@ -31,7 +31,7 @@ class my_virtnode {
     proto => "tcp",
     source => "10.1.2.200/32",
     sport => "80",
-    tosource => "46.4.106.119",
+    tosource => "46.4.106.119/32",
     outiface => "eth0",
     jump => "RAWSNAT",
   }
@@ -78,4 +78,8 @@ class my_virtnode {
 
   # Needed for stateless NAT
   package { "xtables-addons-common": ensure => installed }
+
+  sysctl::value { "asdf":
+    value => "asdf",
+  }
 }

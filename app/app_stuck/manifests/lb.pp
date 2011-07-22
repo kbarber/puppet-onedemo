@@ -1,4 +1,4 @@
-class my_lb {
+class app_stuck::lb {
   class { "lvs::keepalived":
   }
 

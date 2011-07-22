@@ -21,6 +21,10 @@ dbuser = puppet
 dbpassword = password
 dbserver = localhost
 allow_duplicate_certs = true
+reports = http, store
+reportsurl = http://localhost:3000/reports/upload
+node_terminus = exec
+external_nodes = /opt/puppet-dashboard/bin/external_node
 
 [onedemo]
 manifest=/etc/puppet/envs/onedemo/manifests/site.pp
@@ -29,6 +33,11 @@ modulepath=/etc/puppet/envs/onedemo/modules:/etc/puppet/envs/onedemo/site:/etc/p
 [agent]
 environment = onedemo
 pluginsync = true
+lastrunfile = /var/lib/puppet/state/last_run_summary.yaml
+inventory_terminus = facter
+inventory_server = puppet
+inventory_port = 8140
+classfile = /var/lib/puppet/state/classes.txt
 
 [testing]
 manifest = /etc/puppet/envs/testing/manifests/site.pp
