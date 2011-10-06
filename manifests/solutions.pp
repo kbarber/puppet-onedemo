@@ -48,6 +48,7 @@ define vm($cpu, $memory, $classes) {
       ip => '$NIC[IP]',
       files => ['/var/lib/one/context/init.sh'],
       target => "vdb",
+      puppet_environment => "onedemo",
     },
   }
 
