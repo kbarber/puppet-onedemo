@@ -1,8 +1,8 @@
 class my_mc {
   class { "mcollective":
-    mc_security_psk => 'abc123',
-    client_config => template("${module_name}/client.cfg"),
-    server_config => template("${module_name}/server.cfg"),
+    mc_security_provider => "ssl",
+#    mc_security_psk => 'abc123',
+    stomp_server => "10.1.2.254",
     client => true,
   }
 
