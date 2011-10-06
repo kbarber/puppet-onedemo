@@ -44,6 +44,7 @@ node /node\d+\.cloud\.*/ {
       ip => '$NIC[IP]',
       files => '/var/lib/one/context/init.sh',
       target => "vdb",
+      puppet_environment => "onedemo",
     }
   }
 
