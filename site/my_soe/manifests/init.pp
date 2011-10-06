@@ -8,4 +8,11 @@ class my_soe {
   # Packages
   package { "vim": ensure => installed }
   package { "tcpdump": ensure => installed }
+
+  sysctl::value { "net.ipv4.tcp_keepalive_time": value => "600" }
+
+  class { "resolver": 
+    nameserver => "10.1.2.254",
+    search => ["cloud.bob.sh","vms.cloud.bob.sh"],
+  }
 }
