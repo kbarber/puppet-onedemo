@@ -49,3 +49,6 @@
 [submodule "modules/git"]
 	path = modules/git
 	url = git@github.com:puppetlabs/puppetlabs-git.git
+[submodule "modules/resolver"]
+	path = modules/resolver
+	url = git@github.com:puppetlabs/puppetlabs-resolver.git
