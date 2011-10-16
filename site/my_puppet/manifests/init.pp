@@ -21,6 +21,19 @@ class my_puppet (
         mode => "0644",
         notify => Service["apache2"],
       }
+
+      # Setup hiera
+      file { "/etc/puppet/hieradata":
+        ensure => directory,
+      }
+      file { "/etc/hiera.yaml":
+        content => template("my_puppet/hiera.yaml"),
+        require => File["/etc/puppet/hieradata"],
+      }
+      package { ["hiera","hiera-gpg"]:
+        provider => "gem",
+        require => File["/etc/hiera.yaml"],
+      }
     }
     false: {
       file { "/etc/puppet/puppet.conf":
