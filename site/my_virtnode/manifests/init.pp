@@ -6,13 +6,13 @@ class my_virtnode {
     chain => "FORWARD",
     proto => "all",
     source => "10.1.2.0/24",
-    jump => "ACCEPT",
+    action => accept,
   }
   firewall { "100 allow forwarding to internal":
     chain => "FORWARD",
     proto => "all",
     destination => "10.1.2.0/24",
-    jump => "ACCEPT",
+    action => accept,
   }
 
   firewall { "200 dnat loadbalanced ip":
