@@ -7,7 +7,7 @@ define app_stuck (
   ######################
   # Pastie application #
   ######################
-  cluster { "db":
+  solution::cluster { "db":
     domain => "vms.cloud.bob.sh",
     nodes => $db_servers,
     cpu => 1,
@@ -16,7 +16,7 @@ define app_stuck (
       "app_stuck::db" => {}
     }
   }->
-  cluster { "web":
+  solution::cluster { "web":
     domain => "vms.cloud.bob.sh",
     nodes => $web_servers,
     cpu => 1,
@@ -25,7 +25,7 @@ define app_stuck (
       "app_stuck::web" => {},
     }
   }->
-  cluster { "lb":
+  solution::cluster { "lb":
     domain => "vms.cloud.bob.sh",
     nodes => $lb_servers,
     cpu => 1,

@@ -4,7 +4,7 @@ define app_basetomcat (
   $lb_servers = 1
   ) {
 
-  cluster { "tcdb":
+  solution::cluster { "tcdb":
     domain => "vms.cloud.bob.sh",
     nodes => $db_servers,
     cpu => 1,
@@ -13,7 +13,7 @@ define app_basetomcat (
       "app_basetomcat::db" => {}
     }
   }->
-  cluster { "tcweb":
+  solution::cluster { "tcweb":
     domain => "vms.cloud.bob.sh",
     nodes => $web_servers,
     cpu => 1,
@@ -22,7 +22,7 @@ define app_basetomcat (
       "app_basetomcat::web" => {},
     }
   }->
-  cluster { "tclb":
+  solution::cluster { "tclb":
     domain => "vms.cloud.bob.sh",
     nodes => $lb_servers,
     cpu => 1,

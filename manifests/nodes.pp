@@ -52,8 +52,8 @@ node /node\d+\.cloud\.*/ {
 
 }
 
-node /^.+\.vms\.cloud\./ {
-  Export_classes <<| tag == "vm_${fqdn}" |>>
+node default {
+  Solution::Export_classes <<| tag == "vm_${fqdn}" |>>
 
   class { "my_soe": }
 }
