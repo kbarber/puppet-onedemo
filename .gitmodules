@@ -55,3 +55,6 @@
 [submodule "modules/solution"]
 	path = modules/solution
 	url = git@github.com:kbarber/puppetlabs-solution.git
+[submodule "modules/hiera-puppet"]
+	path = modules/hiera-puppet
+	url = git://github.com/ripienaar/hiera-puppet.git
