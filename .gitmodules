@@ -12,7 +12,7 @@
 	url = git@github.com:kbarber/puppetlabs-apache.git
 [submodule "modules/firewall"]
 	path = modules/firewall
-	url = git@github.com:puppetlabs/puppetlabs-firewall.git
+	url = git@github.com:kbarber/puppetlabs-firewall.git
 [submodule "modules/mysql"]
 	path = modules/mysql
 	url = git@github.com:puppetlabs/puppetlabs-mysql.git
