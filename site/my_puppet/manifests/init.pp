@@ -26,13 +26,13 @@ class my_puppet (
       file { "/etc/puppet/hieradata":
         ensure => directory,
       }
-      file { "/etc/hiera.yaml":
+      file { "/etc/puppet/hiera.yaml":
         content => template("my_puppet/hiera.yaml"),
         require => File["/etc/puppet/hieradata"],
       }
-      package { ["hiera","hiera-gpg"]:
+      package { ["hiera","hiera-gpg", "hiera-puppet"]:
         provider => "gem",
-        require => File["/etc/hiera.yaml"],
+        require => File["/etc/puppet/hiera.yaml"],
       }
     }
     false: {
