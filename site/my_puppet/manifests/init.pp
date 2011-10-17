@@ -10,7 +10,7 @@ class my_puppet (
       # Mysql database for stored configurations and oned
       class { 'mysql::server':
         config_hash => {
-          root_password => "myrootpassword",
+          root_password => hiera("puppet_mysql_password"),
         }
       }
 
@@ -23,20 +23,22 @@ class my_puppet (
       }
 
       # Setup hiera
-      file { "/etc/puppet/hieradata":
-        ensure => directory,
-      }
       file { "/etc/puppet/hiera.yaml":
         content => template("my_puppet/hiera.yaml"),
-        require => File["/etc/puppet/hieradata"],
       }
       file { "/etc/hiera.yaml":
         ensure => link,
         target => "/etc/puppet/hiera.yaml",
       }
+      file { "/etc/puppet/gpg":
+        ensure => directory,
+        owner => root,
+        group => puppet,
+        mode => "6770",
+      }
       package { ["hiera","hiera-gpg", "hiera-puppet"]:
         provider => "gem",
-        require => File["/etc/puppet/hiera.yaml"],
+        require => [ File["/etc/puppet/hiera.yaml"], File["/etc/puppet/gpg"], ],
       }
     }
     false: {

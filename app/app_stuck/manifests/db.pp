@@ -1,7 +1,7 @@
 class app_stuck::db {
   class { "mysql::server":
     config_hash => {
-      root_password => "stupidgit",
+      root_password => hiera("app_stuck_mysql_root_password"),
       bind_address => "0.0.0.0",
     }
   } 

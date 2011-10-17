@@ -1,7 +1,11 @@
 ---
 :backends: - yaml
+           - gpg
 :logger: console
 :hierarchy: - %{location}
             - common
 :yaml:
-   :datadir: /etc/puppet/hieradata
+   :datadir: /etc/puppet/envs/onedemo/hieradata
+:gpg:
+   :datadir: /etc/puppet/envs/onedemo/hieradata
+   :homedir: /etc/puppet/gpg

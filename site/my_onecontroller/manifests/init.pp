@@ -3,7 +3,7 @@ class my_onecontroller {
   resources { "onevm": purge => true }
 
   class { "opennebula::controller":
-    oneadmin_password => "gozanoli",
+    oneadmin_password => hiera("opennebula_controller_password"),
     oned_config => {
       'db_backend' => 'sqlite',
 #      'db_backend' => 'mysql',

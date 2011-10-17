@@ -1,7 +1,5 @@
 class my_snmpd {
-  if !$my_snmp_secret {
-    $my_snmp_secret = "public"
-  }
+  $my_snmpd_secret = hiera("snmp_secret")
 
   package { "snmpd":
     ensure => installed,

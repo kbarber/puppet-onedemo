@@ -1,0 +1,6 @@
+mc_security_psk: nil
+puppet_mysql_password: nil
+opennebula_controller_password: nil
+snmp_secret: nil
+app_basetomcat_mysql_root_password: nil
+app_stuck_mysql_root_password: nil

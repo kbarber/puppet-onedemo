@@ -1,10 +1,12 @@
+# Setup firewall resource
 resources { "firewall": purge => true }
 filebucket { main:
   server => puppet,
   path => false,
 }
-File { backup => main }
 
+# Send file backups to main
+File { backup => main }
 
 # Stages
 stage { "pre": before => Stage["main"] }
