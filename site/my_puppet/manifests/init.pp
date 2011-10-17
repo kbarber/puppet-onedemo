@@ -30,6 +30,10 @@ class my_puppet (
         content => template("my_puppet/hiera.yaml"),
         require => File["/etc/puppet/hieradata"],
       }
+      file { "/etc/hiera.yaml":
+        ensure => link,
+        target => "/etc/puppet/hiera.yaml",
+      }
       package { ["hiera","hiera-gpg", "hiera-puppet"]:
         provider => "gem",
         require => File["/etc/puppet/hiera.yaml"],
